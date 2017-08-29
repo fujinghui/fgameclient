@@ -9,14 +9,29 @@
 
 #define PI 3.1315926
 static GLfloat spin = 0.0;
-FGraph graph;
+FGraph *graph;
 void renderScene(void) {
+	graph = FGraph::getInstance();
+	GLint vertices[] = {
+		-50, -50, 0, 
+		-50, 50, 0,
+		50, 50, 0};
+	GLfloat color[] = {
+		1.0, 0.0, 0.0,
+		0.0, 1.0, 1.0,
+		0.0, 1.0, 1.0
+	};
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-
-	graph.DrawCircle(1.0);
-	graph.DrawLine(0, 0, 1.0, 1.1);
-	graph.DrawPolygon();
+	glPushMatrix();
+	//glLoadIdentity();
+	glRotatef(spin, 1.0, 1.0, 0.0);
+	
+	graph->DrawCircle(1.0);
+	//graph->DrawLine(0, 0, 100.0, 55.0);
+	//graph->DrawPolygon();
+	//graph->DrawObject(vertices);
+	//graph->DrawObject(vertices, color);
+	graph->DrawCube(2);
 	glEnd();
 
 
@@ -40,13 +55,13 @@ void init(void) {
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glPushMatrix();
-	glRotatef(spin, 0.0, 0.0, 1.0);
+	glRotatef(spin, 1.0, 1.0, 1.0);
 	glColor3f(1.0, 1.0, 1.0);
 	glRectf(-25.0, -25.0, 25.0, 25.0);
 
 	glLineWidth(10.0f);
 
-
+	
 	glPopMatrix();
 	glutSwapBuffers();
 }
@@ -61,8 +76,8 @@ void reshape(int w, int h) {
 	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//glOrtho(-500.0, 50.0, -50.0, 50.0, -1.0, 1.0);
-	gluOrtho2D(-100.0, 100.0, -100, 100);
+	glOrtho(-10.0, 10.0, -10.0, 10.0, -10.0, 11.0);
+	//gluOrtho2D(-10.0, 10.0, -10, 10);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
@@ -89,8 +104,8 @@ int main(int argc, char **argv)
 	glutCreateWindow("hello opengl");
 	init();
 	glutDisplayFunc(renderScene);
-	//glutReshapeFunc(reshape);
-	//glutMouseFunc(mouse);
+	glutReshapeFunc(reshape);
+	glutMouseFunc(mouse);
 	glutMainLoop();
     return 0;
 }
