@@ -2,6 +2,7 @@
 //#include <gl/GLU.h>
 #include <glut.h>
 #include <math.h>
+#include <random>
 #include "FGraph.h"
 
 #define PI 3.1315926
@@ -104,25 +105,38 @@ void FGraph::DrawObject(GLint *vertices, GLfloat *color) {
 }
 //绘制一个立方体
 void FGraph::DrawCube(GLfloat r) {
+	GLfloat sdata[] = {
+		-1.0, -1.0, -1.0,
+		1.0, -1.0, -1.0,
+		1.0, 1.0, -1.0,
+		-1.0, 1.0, -1.0 };
+	GLbyte indices[] = { 0, 1, 2, 3 };
 	GLfloat data[24];
-	GLfloat color[] = { 1.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0 };
+	GLfloat color[24] = { 1.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0 };
 	for (int i = 0; i < 24; i++)
 	{
 		data[i] = cube_data[i]*r;
+		color[i] = 0.5f;// (rand() % 100)*1.0 / 100.0;
 	} 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 	
 	glVertexPointer(3, GL_FLOAT, 0, data);
 	glColorPointer(3, GL_FLOAT, 0, color);
+	
+
 	//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, cube_indices);
 	//return;
-	glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, cube_indices + 0);
-	glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, cube_indices + 4);
-	glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, cube_indices + 8);
-	glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, cube_indices + 12);
-	glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, cube_indices + 16);
-	glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, cube_indices + 20);
-
+	//glDrawElements(GL_LINE_STRIP, 4, GL_UNSIGNED_BYTE, cube_indices + 0);
+	//glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, indices);
+	//glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, cube_indices + 8);
+	//glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, cube_indices + 12);
+	//glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, cube_indices + 16);
+	//glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, cube_indices + 20);
+	
+	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_BYTE, cube_indices);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDrawElements(GL_LINE_STRIP, 24, GL_UNSIGNED_BYTE, cube_indices);
 }
 
