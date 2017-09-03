@@ -2,7 +2,7 @@
 //#include <gl/GLU.h>
 #include <glut.h>
 #include <math.h>
-#include <random>
+#include <cstdlib>
 #include "FGraph.h"
 
 #define PI 3.1315926
@@ -116,7 +116,7 @@ void FGraph::DrawCube(GLfloat r) {
 	for (int i = 0; i < 24; i++)
 	{
 		data[i] = cube_data[i]*r;
-		color[i] = 0.5f;// (rand() % 100)*1.0 / 100.0;
+		color[i] = (rand() % 100)*1.0 / 100.0;
 	} 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
@@ -133,8 +133,15 @@ void FGraph::DrawCube(GLfloat r) {
 	//glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, cube_indices + 12);
 	//glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, cube_indices + 16);
 	//glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, cube_indices + 20);
-	
+	/*
 	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_BYTE, cube_indices);
+	for (int i = 0; i < count; i++)
+	{
+		gl_InstanceID = i;
+		glDrawElements(mode, count, type, indicies);
+	}
+	gl_InstanceID = 0;*/
+
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDrawElements(GL_LINE_STRIP, 24, GL_UNSIGNED_BYTE, cube_indices);
