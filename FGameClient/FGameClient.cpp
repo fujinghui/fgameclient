@@ -1,11 +1,13 @@
 // FGameClient.cpp: 定义控制台应用程序的入口点。
 //
 #include <windows.h>
+#include <GL/glew.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include <glut.h>
 #include <math.h>
 #include "FGraph.h"
+#include <stdio.h>
 
 #define PI 3.1315926
 static GLfloat spin = 0.0;
@@ -26,15 +28,18 @@ void renderScene(void) {
 	//glLoadIdentity();
 	glRotatef(spin, 1.0, 1.0, 0.0);
 	
-	graph->DrawCircle(1.0);
 	//graph->DrawLine(0, 0, 100.0, 55.0);
 	//graph->DrawPolygon();
 	//graph->DrawObject(vertices);
 	//graph->DrawObject(vertices, color);
-	graph->DrawCube(2);
-	glEnd();
+	//graph->DrawObject(vertices, color);
+	//graph->DrawCube(2);
+	//graph->DrawObjectTest2();
+	//glEnd();
+	glScaled(2.0, 2.0, 2.0);
+	graph->DrawTwelvePloy();
 
-
+	
 	//glBegin(GL_TRIANGLES);
 	//glVertex3f(-0.5, -0.5, 1.0);
 	//glVertex3f(0.5, 0.0, 1.0);
@@ -97,12 +102,25 @@ void mouse(int button, int state, int x, int y) {
 }
 int main(int argc, char **argv)
 {
+
+
+
 	glutInit(&argc, (char**)argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
+	
 	glutInitWindowSize(320, 320);
+	//glutInitContext
+	//glutInitContextProfile(GLUT_CORE_PROFILE);
 	glutCreateWindow("hello opengl");
+	//初始化glew
+	GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		fprintf(stderr, "Error:%s\n", err);
+	}
 	init();
+
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(reshape);
 	glutMouseFunc(mouse);

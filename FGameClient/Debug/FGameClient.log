@@ -1,6 +1,4 @@
 ﻿  fgraph.cpp
-  FGameClient.cpp
-d:\code\game\fgameclient\fgameclient\fgameclient.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  正在生成代码...
+d:\code\game\fgameclient\fgameclient\fgraph.cpp(239): warning C4838: 从“const GLdouble”转换到“GLfloat”需要收缩转换
   FGameClient.vcxproj -> D:\code\game\FGameClient\Debug\FGameClient.exe
   FGameClient.vcxproj -> D:\code\game\FGameClient\Debug\FGameClient.pdb (Partial PDB)
